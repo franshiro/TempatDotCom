@@ -14,7 +14,7 @@ import FavButton from './favButton'
 
 const window = Dimensions.get('window')
 
-const CustomCard = ({cardWidth}) => {
+const CustomCard = ({cardWidth, bgc, category }) => {
   return (
     <View style={[styles.cardContainer, { width : window.width / cardWidth}]}>
       <View style={styles.imageCard}>
@@ -27,8 +27,8 @@ const CustomCard = ({cardWidth}) => {
             <Rating />
             <FavButton />
           </View>
-          <View style={styles.categoryContainer}>
-            <Text style={styles.categoryText}>Restaurant</Text>
+          <View style={[styles.categoryContainer, {backgroundColor : bgc}]}>
+            <Text style={styles.categoryText}>{category}</Text>
           </View>
         </ImageBackground>
       </View>
@@ -73,14 +73,14 @@ const styles = StyleSheet.create({
     padding : 10,
   },
   categoryContainer : {
-    width : '30%',
+    height : 20,
+    width : undefined,
     position : 'absolute',
     bottom : 0,
     left : 0,
-    backgroundColor : '#f6b93b',
     borderTopRightRadius : 15,
     justifyContent : 'center',
-    paddingLeft : 5
+    padding : 10,
   },
   categoryText : {
     color : '#fff'

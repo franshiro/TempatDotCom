@@ -29,9 +29,13 @@ const App = () => {
           >
             <CustomCard 
               cardWidth = {1.25}
+              bgc = '#f6b93b'
+              category="Restaurant"
             />
             <CustomCard 
               cardWidth = {1.25}
+              bgc = '#9b59b6'
+              category={`Beauty & well`}
             />
           </ScrollView>
           <TitleSegment 
@@ -44,9 +48,13 @@ const App = () => {
           >
             <CustomCard 
               cardWidth = {1.5}
+              bgc = 'green'
+              category="Sport"
             />
             <CustomCard 
               cardWidth = {1.5}
+              bgc = 'pink'
+              category = 'Hotel'
             />
           </ScrollView>
         </ScrollView>
