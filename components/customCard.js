@@ -9,14 +9,14 @@ import {
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
-import Rating from '../components/rating'
-import FavButton from '../components/favButton'
+import Rating from './rating'
+import FavButton from './favButton'
 
 const window = Dimensions.get('window')
 
-const DealsCard = () => {
+const CustomCard = ({cardWidth}) => {
   return (
-    <View style={styles.cardContainer}>
+    <View style={[styles.cardContainer, { width : window.width / cardWidth}]}>
       <View style={styles.imageCard}>
         <ImageBackground 
           source={require('../assets/img/gyukaku.jpg')}
@@ -50,7 +50,6 @@ const DealsCard = () => {
 const styles = StyleSheet.create({
   cardContainer : {
     height : window.height / 1.7,
-    width : window.width / 1.2,
     backgroundColor : '#fff',
     marginVertical : 10,
     marginRight : 15,
@@ -121,4 +120,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default DealsCard
+export default CustomCard

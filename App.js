@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 import TitleSegment from './components/titleSegment'
-import DealsCard from './components/dealsCard'
+import CustomCard from './components/customCard'
 
 const App = () => {
   return (
@@ -27,8 +27,12 @@ const App = () => {
             showsHorizontalScrollIndicator={false}
             styles={styles.scrollCardVertical}
           >
-            <DealsCard />
-            <DealsCard />
+            <CustomCard 
+              cardWidth = {1.25}
+            />
+            <CustomCard 
+              cardWidth = {1.25}
+            />
           </ScrollView>
           <TitleSegment 
             title="Popular Places in Jakarta"
@@ -38,8 +42,12 @@ const App = () => {
             showsHorizontalScrollIndicator={false}
             styles={styles.scrollCardVertical}
           >
-            <DealsCard />
-            <DealsCard />
+            <CustomCard 
+              cardWidth = {1.5}
+            />
+            <CustomCard 
+              cardWidth = {1.5}
+            />
           </ScrollView>
         </ScrollView>
       </SafeAreaView>
