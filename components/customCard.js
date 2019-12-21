@@ -5,16 +5,20 @@ import {
   Text,
   StyleSheet,
   Dimensions,
-  ImageBackground
+  ImageBackground,
 } from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome5'
+import { ScrollView as NestedScroll} from 'react-native-gesture-handler'
 
 import Rating from './rating'
 import FavButton from './favButton'
+import SubTimeCard from '../components/subTimeCard'
 
 const window = Dimensions.get('window')
+const small = require('../assets/img/small.png')
+const larga = require('../assets/img/high.png')
+const medium = require('../assets/img/medium.png')
 
-const CustomCard = ({cardWidth, bgc, category }) => {
+const CustomCard = ({cardWidth, bgc, category, nested }) => {
   return (
     <View style={[styles.cardContainer, { width : window.width / cardWidth}]}>
       <View style={styles.imageCard}>
@@ -38,7 +42,44 @@ const CustomCard = ({cardWidth, bgc, category }) => {
         <Text style={styles.detailType}>Grill, Japanese</Text>
       </View>
       <View style={styles.timeCard}>
-
+          <NestedScroll
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            nestedScrollEnabled
+            onTouchStart={() => nested(false)}
+            onTouchCancel={() => nested(true)}
+            onMomentumScrollEnd={() => nested(true)}
+            onScrollEndDrag={() => nested(true)}
+            style={{
+              flex : 1,
+              zIndex : 2,
+              paddingHorizontal : 10
+            }}
+          >
+            <SubTimeCard value={0.5} />
+            <SubTimeCard value={0.1} />
+            <SubTimeCard value={0.35} />
+            <SubTimeCard value={0.6} />
+          </NestedScroll>
+        <View
+          style={{
+            position : 'absolute',
+            bottom : '-38%',
+            width : 100,
+            height : 150,
+            borderRadius : 100,
+            transform : [{
+              scaleX : 5,
+            }],
+            borderColor : 'grey',
+            borderWidth : 0.5,
+            paddingHorizontal : 10,
+            zIndex : 1
+          }}
+        />
+        <View style={styles.totalBooked}>
+          <Text>Booked <Text style={{fontWeight : 'bold'}}>1002</Text> since yesterday</Text>
+        </View>
       </View>
       <TouchableOpacity style={styles.buttonCard}>
         <Text style={styles.buttonText}>BOOK NOW</Text>
@@ -104,7 +145,15 @@ const styles = StyleSheet.create({
     color : '#b2bec3'
   },
   timeCard : {
+    alignItems : 'center',
     height : '30%',
+    overflow : 'hidden'
+  },
+  totalBooked : {
+    width : '100%',
+    position : 'absolute',
+    bottom : 10,
+    alignItems : 'center'
   },
   buttonCard : {
     height : '10%',
