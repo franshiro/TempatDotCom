@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 const window = Dimensions.get('window')
 
 
-const SubTimeCard = ({ value, img, time, iconSize }) => {
+const SubTimeCard = ({ value, time }) => {
   const small = require('../assets/img/small.png')
   const large = require('../assets/img/high.png')
   const medium = require('../assets/img/medium.png')
@@ -45,7 +45,7 @@ const SubTimeCard = ({ value, img, time, iconSize }) => {
     <TouchableOpacity style={styles.container}>
       <Text>{`${100*value}%`}</Text>
       <Image source={imgChoose(value)} style={{ height : 30 * imgSizeChoose(value), width : 30 * imgSizeChoose(value)}}/>
-      <Text>09.00-12.00</Text>
+      <Text>{time}</Text>
     </TouchableOpacity>
   )
 }

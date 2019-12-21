@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
   title : {
     fontWeight : "bold",
-    fontSize : 23
+    fontSize : 20
   },
   link : {
     fontWeight : "bold",

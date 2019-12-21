@@ -6,65 +6,70 @@ import {
   StyleSheet,
   Dimensions,
   ImageBackground,
+  Platform
 } from 'react-native'
 import { ScrollView as NestedScroll} from 'react-native-gesture-handler'
+import {elevationShadowStyle} from './variable/iosElevation'
 
 import Rating from './rating'
 import FavButton from './favButton'
 import SubTimeCard from '../components/subTimeCard'
 
 const window = Dimensions.get('window')
-const small = require('../assets/img/small.png')
-const larga = require('../assets/img/high.png')
-const medium = require('../assets/img/medium.png')
 
-const CustomCard = ({cardWidth, bgc, category, nested }) => {
+const CustomCard = ({cardWidth, category, detail, img,timeline,nested }) => {
+  
   return (
     <View style={[styles.cardContainer, { width : window.width / cardWidth}]}>
       <View style={styles.imageCard}>
         <ImageBackground 
-          source={require('../assets/img/gyukaku.jpg')}
+          source={img}
           resizeMode="cover"
           style={styles.imageBG}
         >
           <View style={styles.ratingContainer}>
-            <Rating />
+            <Rating value={detail && detail.rating}/>
             <FavButton />
           </View>
-          <View style={[styles.categoryContainer, {backgroundColor : bgc}]}>
+          <View style={[styles.categoryContainer, {backgroundColor : detail && detail.color}]}>
             <Text style={styles.categoryText}>{category}</Text>
           </View>
         </ImageBackground>
       </View>
       <View style={styles.detailCard}>
-        <Text style={styles.detailTitle}>Gyukaku Buffet</Text>
-        <Text style={styles.detailLocation}>Gandaria City, Jakarta Selatan</Text>
-        <Text style={styles.detailType}>Grill, Japanese</Text>
+        <Text style={styles.detailTitle}>{detail && detail.name}</Text>
+        <Text style={styles.detailLocation}>{detail && `${detail.address}, ${detail.city}`}</Text>
+        <Text style={styles.detailType}>{detail && detail.type}</Text>
       </View>
       <View style={styles.timeCard}>
-          <NestedScroll
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            nestedScrollEnabled
-            onTouchStart={() => nested(false)}
-            onTouchCancel={() => nested(true)}
-            onMomentumScrollEnd={() => nested(true)}
-            onScrollEndDrag={() => nested(true)}
-            style={{
-              flex : 1,
-              zIndex : 2,
-              paddingHorizontal : 10
-            }}
-          >
-            <SubTimeCard value={0.5} />
-            <SubTimeCard value={0.1} />
-            <SubTimeCard value={0.35} />
-            <SubTimeCard value={0.6} />
-          </NestedScroll>
+        <NestedScroll
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          nestedScrollEnabled
+          onTouchStart={() => nested(false)}
+          onTouchCancel={() => nested(true)}
+          onMomentumScrollEnd={() => nested(true)}
+          onScrollEndDrag={() => nested(true)}
+          style={{
+            flex : 1,
+            zIndex : 2,
+            paddingHorizontal : 10
+          }}
+        >
+          {
+            timeline && timeline.map((item, index) => (
+              <SubTimeCard 
+                key={index}
+                value={item.value}
+                time={item.time}
+              />
+            ))
+          }
+        </NestedScroll>
         <View
           style={{
             position : 'absolute',
-            bottom : '-38%',
+            bottom : Platform.OS === 'android' ? '-37%' : '-25%',
             width : 100,
             height : 150,
             borderRadius : 100,
@@ -78,7 +83,7 @@ const CustomCard = ({cardWidth, bgc, category, nested }) => {
           }}
         />
         <View style={styles.totalBooked}>
-          <Text>Booked <Text style={{fontWeight : 'bold'}}>1002</Text> since yesterday</Text>
+        <Text>Booked <Text style={{fontWeight : 'bold'}}>{detail && detail.totalBooked}</Text> since yesterday</Text>
         </View>
       </View>
       <TouchableOpacity style={styles.buttonCard}>
@@ -97,7 +102,9 @@ const styles = StyleSheet.create({
     marginLeft : 1,
     borderRadius : 7,
     elevation : 5,
-    overflow : 'hidden'
+    overflow : 'hidden',
+    borderColor : Platform.OS == 'ios' ? 'black' : null,
+    borderWidth : Platform.OS == 'ios' ? 0.3 : 0
   },
   imageCard : {
     height : '40%',
@@ -124,7 +131,7 @@ const styles = StyleSheet.create({
     padding : 10,
   },
   categoryText : {
-    color : '#fff'
+    color : '#fff',
   },
   detailCard : {
     height : '20%',

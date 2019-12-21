@@ -6,11 +6,11 @@ import {
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
-const Rating = () => {
+const Rating = ({value}) => {
   return (
     <View style={styles.container}>
       <Icon name="star" solid={true} color="#fff"/>
-      <Text style={styles.ratingValue}> 5.0</Text>
+  <Text style={styles.ratingValue}> {parseFloat(value).toFixed(1)}</Text>
     </View>
   )
 }

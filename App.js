@@ -9,6 +9,8 @@ import {
 
 import TitleSegment from './components/titleSegment'
 import CustomCard from './components/customCard'
+import {deals, popular} from './components/dataJson/dummy'
+
 
 const App = () => {
   const [enable , setEnable ] = useState(true)
@@ -34,18 +36,19 @@ const App = () => {
             scrollEnabled={enable}
             styles={styles.scrollCardVertical}
           >
-            <CustomCard 
-              cardWidth = {1.25}
-              bgc = '#f6b93b'
-              category='Restaurant'
-              nested={useNested}
-            />
-            <CustomCard 
-              cardWidth = {1.25}
-              bgc = '#9b59b6'
-              category={`Beauty & well`}
-              nested={useNested}
-            />
+            {
+              deals && deals.map((item, index) => (
+                <CustomCard 
+                  key={index}
+                  cardWidth = {1.25}
+                  category={item.category}
+                  detail={item.detail}
+                  timeline={item.timeline}
+                  img={item.img}
+                  nested={useNested}
+                />
+              ))
+            }
           </ScrollView>
           <TitleSegment 
             title="Popular Places in Jakarta"
@@ -56,18 +59,19 @@ const App = () => {
             showsHorizontalScrollIndicator={false}
             styles={styles.scrollCardVertical}
           >
-            <CustomCard 
-              cardWidth = {1.5}
-              bgc = 'green'
-              category="Sport"
-              nested={useNested}
-            />
-            <CustomCard 
-              cardWidth = {1.5}
-              bgc = 'pink'
-              category = 'Hotel'
-              nested={useNested}
-            />
+            {
+              popular && popular.map((item, index) => (
+                <CustomCard 
+                  key={index}
+                  cardWidth = {1.5}
+                  category={item.category}
+                  detail={item.detail}
+                  timeline={item.timeline}
+                  img={item.img}
+                  nested={useNested}
+                />
+              ))
+            }
           </ScrollView>
         </ScrollView>
       </SafeAreaView>
