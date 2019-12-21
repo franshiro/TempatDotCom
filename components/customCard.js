@@ -20,7 +20,21 @@ const window = Dimensions.get('window')
 const CustomCard = ({cardWidth, category, detail, img,timeline,nested }) => {
   
   return (
-    <View style={[styles.cardContainer, { width : window.width / cardWidth}]}>
+    <View 
+      style={{
+        width : window.width / cardWidth,
+        height : window.height / 1.7,
+        backgroundColor : '#fff',
+        marginVertical : 10,
+        marginRight : 15,
+        marginLeft : 1,
+        borderRadius : 7,
+        ...elevationShadowStyle(5),
+        overflow : 'hidden',
+        borderColor : Platform.OS == 'ios' ? 'black' : null,
+        borderWidth : Platform.OS == 'ios' ? 0.3 : 0
+      }}
+    >
       <View style={styles.imageCard}>
         <ImageBackground 
           source={img}
@@ -31,8 +45,18 @@ const CustomCard = ({cardWidth, category, detail, img,timeline,nested }) => {
             <Rating value={detail && detail.rating}/>
             <FavButton />
           </View>
-          <View style={[styles.categoryContainer, {backgroundColor : detail && detail.color}]}>
-            <Text style={styles.categoryText}>{category}</Text>
+          <View
+            style={{
+              position : 'absolute',
+              bottom : 0,
+              left : 0,
+              width : undefined,
+              height : 20,
+              borderTopRightRadius : 15,
+              backgroundColor : detail && detail.color,
+            }}
+          >
+            <Text style={{color: '#ffff', marginHorizontal : 10}}>{category}</Text>
           </View>
         </ImageBackground>
       </View>
@@ -119,19 +143,6 @@ const styles = StyleSheet.create({
     justifyContent : 'space-between',
     alignItems : 'center',
     padding : 10,
-  },
-  categoryContainer : {
-    height : 20,
-    width : undefined,
-    position : 'absolute',
-    bottom : 0,
-    left : 0,
-    borderTopRightRadius : 15,
-    justifyContent : 'center',
-    padding : 10,
-  },
-  categoryText : {
-    color : '#fff',
   },
   detailCard : {
     height : '20%',
